@@ -15,8 +15,8 @@ void findPath(vector<vector<ii> > &graph,int startNode, int endNode, vector<int>
     vector<bool> visited(graph.size(), false);
     
     queue<ii> q;
-    visited[startNode] = true;
-    q.push(make_pair(startNode,0));
+    visited[endNode] = true;
+    q.push(make_pair(endNode,0));
     
     while(!q.empty())
     {
@@ -24,7 +24,7 @@ void findPath(vector<vector<ii> > &graph,int startNode, int endNode, vector<int>
         int node = par.first, dist = par.second;
         q.pop();
         
-        if (node == endNode)
+        if (node == startNode)
         {
             path = prev;
             return;

@@ -6,7 +6,7 @@
 #include <vector>
 #include <ctime>
 
-Maze maze(7,7);
+Maze maze(50,50);
 vector<int> path;
 int cur;
 
@@ -48,7 +48,7 @@ int main(int argc,char* argv[])
     
     bool changedTitle = false;
     vector<vector<ii> > edges;
-    cur = maze.endNode;
+    cur = maze.startNode;
     
     while(!glfwWindowShouldClose(window))
     {
@@ -197,7 +197,7 @@ void paint(void)
             if(!path.empty())
             {
                 int prev = backtrack(cur);
-                if (prev == node && prev != maze.startNode)
+                if (prev == node && prev != maze.endNode && prev!= maze.startNode)
                 {
                     cur = prev;
                 
