@@ -2,18 +2,47 @@
 
 #include "maze.h"
 #include "pathfinder.h"
+
 #include <iostream>
 #include <vector>
 #include <ctime>
+#include <functional>
+#include <chrono>
+#include <future>
+#include <cstdio>
 
-Maze maze(50,50);
-vector<int> path;
+Maze maze(100,100);
+std::vector<int> path;
 int cur;
 
 float px = 100.f;
 float nx = -px;
 float py = 100.f;
 float ny = -px;
+
+class timer //since im a GLFW pleb
+{
+public:
+    template <class callable, class... arguments>
+    timer(int after, bool async, callable&& f, arguments&&... args)
+    {
+        std::function<typename std::result_of<callable(arguments...)>::type()> task(std::bind(std::forward<callable>(f), std::forward<arguments>(args)...));
+        
+        if (async)
+        {
+            std::thread([after, task]() {
+                std::this_thread::sleep_for(std::chrono::milliseconds(after));
+                task();
+            }).detach();
+        }
+        else
+        {
+            std::this_thread::sleep_for(std::chrono::milliseconds(after));
+            task();
+        }
+    }
+    
+};
 
 /////////////////////PROTOTYPES/////////////////////////////////////
 
@@ -47,13 +76,18 @@ int main(int argc,char* argv[])
     glfwMakeContextCurrent(window);
     
     bool changedTitle = false;
-    vector<vector<ii> > edges;
+    std::vector<std::vector<ii> > edges;
     cur = maze.startNode;
     
     while(!glfwWindowShouldClose(window))
     {
         initOpenGL();
-        paint();
+        if(changedTitle) //if we are done creating the maze
+            timer timePaint(80,false,&paint); //then use a timer callback
+        else
+            paint();
+        
+        
         if(!maze.Generate())
             paint();
         else if(!changedTitle)

@@ -1,13 +1,12 @@
 #include <ctime>
 #include "maze.h"
-using namespace std;
 
 Maze::Maze(const uint32_t size_x_, const uint32_t size_y_):
         size_x(size_x_), size_y(size_y_)
 {
     len = (size_x * size_y);
-    maze = vector<byte>(len,0);
-    isInPath = vector<bool>(len,false);
+    maze = std::vector<byte>(len,0);
+    isInPath = std::vector<bool>(len,false);
     
     srand(time(0));
     
@@ -20,7 +19,7 @@ Maze::Maze(const uint32_t size_x_, const uint32_t size_y_):
 
 Maze::~Maze()
 {
-    cout << "lata pleb" << "\n";
+    std::cout << "lata pleb" << "\n";
 }
 
 int Maze::Width()
@@ -142,30 +141,30 @@ int Maze::getBottomNghbr(int node)
     return bx;
 }
 
-vector<vector<ii> > Maze::createNghbrList()
+std::vector<std::vector<ii> > Maze::createNghbrList()
 {
-    std::vector<vector<ii> > edges(len);
+    std::vector<std::vector<ii> > edges(len);
 
     for(int i = 0; i < maze.size(); ++i)
     {
         if (maze[i] & TOP_EDGE)
-            edges[i].push_back(make_pair(getTopNghbr(i),1));
+            edges[i].push_back(std::make_pair(getTopNghbr(i),1));
         if (maze[i] & RIGHT_EDGE)
-            edges[i].push_back(make_pair(getRightNghbr(i),1));
+            edges[i].push_back(std::make_pair(getRightNghbr(i),1));
         if (maze[i] & BOTTOM_EDGE)
-            edges[i].push_back(make_pair(getBottomNghbr(i),1));
+            edges[i].push_back(std::make_pair(getBottomNghbr(i),1));
         if (maze[i] & LEFT_EDGE)
-            edges[i].push_back(make_pair(getLeftNghbr(i),1));
+            edges[i].push_back(std::make_pair(getLeftNghbr(i),1));
         }
 
     for(int i = 0; i < edges.size(); ++i)
     {
-        cout << "Node: " << i <<  " has neighbors ";
+        std::cout << "Node " << i <<  " has neighbors: ";
         for(int j = 0; j < edges[i].size(); ++j)
         {
-            cout << edges[i][j].first << " ";
+            std::cout << edges[i][j].first << " ";
         }
-        cout << endl;
+        std::cout << "\n";
     }
     
     return edges;
@@ -189,7 +188,7 @@ bool Maze::Generate() //tldr - choose node at random and add it to vector
     int top = getTopNghbr(this->node);
     int bottom = getBottomNghbr(this->node);
     
-    vector<PossibleNode> choices; //vector of possible nodes
+    std::vector<PossibleNode> choices; //vector of possible nodes
     
     if (left != -1 && (maze[left] & VISITED) == 0)
     {

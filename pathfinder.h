@@ -9,14 +9,14 @@
 #include <queue>
 
 //BFS
-void findPath(vector<vector<ii> > &graph,int startNode, int endNode, vector<int> &path)
+void findPath(std::vector<std::vector<ii> > &graph,int startNode, int endNode, std::vector<int> &path)
 {
-    vector<int> prev(graph.size(),-1);
-    vector<bool> visited(graph.size(), false);
+    std::vector<int> prev(graph.size(),-1);
+    std::vector<bool> visited(graph.size(), false);
     
-    queue<ii> q;
+    std::queue<ii> q;
     visited[endNode] = true;
-    q.push(make_pair(endNode,0));
+    q.push(std::make_pair(endNode,0));
     
     while(!q.empty())
     {
@@ -27,13 +27,14 @@ void findPath(vector<vector<ii> > &graph,int startNode, int endNode, vector<int>
         if (node == startNode)
         {
             path = prev;
+            std::cout << "Steps taken: " << dist << "\n";
             return;
         }
         for(int i = 0; i < graph[node].size(); ++i)
         {
             if(!visited[graph[node][i].first])
             {
-                q.push(make_pair(graph[node][i].first,dist+1));
+                q.push(std::make_pair(graph[node][i].first,dist+1));
                 visited[graph[node][i].first] = true;
                 prev[graph[node][i].first] = node;
             }
@@ -42,14 +43,14 @@ void findPath(vector<vector<ii> > &graph,int startNode, int endNode, vector<int>
     }
 }
 
-void printPath(vector<int> prev,int endNode)
+void printPath(std::vector<int> prev,int endNode)
 {
     while(prev[endNode] != -1)
     {
-        cout << prev[endNode] << " ";
+        std::cout << prev[endNode] << " ";
         endNode = prev[endNode];
     }
-    cout << endl;
+    std::cout << "\n";
 }
 
 #endif /* pathfinder_h */

@@ -7,10 +7,9 @@
 #include <unistd.h>
 
 #include <iostream>
-using namespace std; //meh
 
 typedef unsigned char byte;
-typedef pair<int,int> ii;
+typedef std::pair<int,int> ii;
 typedef unsigned int uint32_t;
 
 typedef struct
@@ -29,12 +28,12 @@ typedef struct
     bool isPath = false;
     void print()
     {
-        if (invalid) { cout << "Invalid!" << "\n"; return; }
-        cout << "Visited: " << visited << endl;
-        cout << "Left   : " << lEdge << endl;
-        cout << "Right  : " << rEdge << endl;
-        cout << "Top    : " << tEdge << endl;
-        cout << "Bottom : " << bEdge << endl;
+        if (invalid) { std::cout << "Invalid!" << "\n"; return; }
+        std::cout << "Visited: " << visited << "\n";
+        std::cout << "Left   : " << lEdge << "\n";
+        std::cout << "Right  : " << rEdge << "\n";
+        std::cout << "Top    : " << tEdge << "\n";
+        std::cout << "Bottom : " << bEdge << "\n";
     }
     
     int weigth;
@@ -54,10 +53,10 @@ public:
     
     Node getNode(int x, int y); //get node at specific coordinate of maze.
     
-    vector<vector<ii> > createNghbrList();
+    std::vector<std::vector<ii> > createNghbrList();
     
     int startNode, endNode;
-    vector<bool> isInPath;
+    std::vector<bool> isInPath;
     
 private:
     int randomNode(); //get index of random node from maze
@@ -72,9 +71,9 @@ private:
     uint32_t size_x; // Maze width
     uint32_t size_y; // Maze height
     uint32_t len;         //  (size_x * size_y), length of maze
-    vector<byte> maze;      // all nodes in the maze
+    std::vector<byte> maze;      // all nodes in the maze
     
-    vector<int> activeset; // the active nodes in the maze
+    std::vector<int> activeset; // the active nodes in the maze
     int index; // used for storing state in "Generate()"
     int node;  // used for storing state in "Generate()"
     
