@@ -1,5 +1,5 @@
 # Maze-generator-and-solver
-Simple Maze generator and solver made with GLFW and OpenGL.
+Simple GLFW application that generates maze, then solves it.
 
 Growing Tree Algorithm was used to generate the maze.
 
